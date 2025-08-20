@@ -1,0 +1,21 @@
+[project]
+name = "aia"
+version = "0.1.0"
+description = "ai auditors using crewAI"
+authors = [{ name = "Ayman Maimoni", email = "amaimldsl@gmail.com" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "crewai[tools]>=0.100.1,<1.0.0"
+]
+
+[project.scripts]
+aia = "aia.main:run"
+run_crew = "aia.main:run"
+train = "aia.main:train"
+replay = "aia.main:replay"
+test = "aia.main:test"
+
+
+
+[tool.crewai]
+type = "crew"
