@@ -1,17 +1,287 @@
-research_task:
-  description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is {current_year}.
-  expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
-  agent: researcher
+review_logical_access:
+    description: Compare system access levels against authorized access matrix
+    agent: logical_access_reviewer
+    priority: 1
+    expected_output: A markdown file containing access-related findings
+    output_structure:
+        sections:
+            - title: Observation 
+              requirements:
+                - Subject-focused and concise
+                - Non-negative phrasing
+                - Clear without technical jargon
+            - title: Observation Details
+              format: bullet_points
+              requirements:
+                - Direct and concise points that explains the noted discrepancies.
+                - Logical flow in main and sub-bullets
+                - No background information
+                - Clear timeline and scope
+                - Evidence-based findings
+            - title: Risks
+              components:
+                - Identified risks
+                - Impact analysis
+                - Control gaps
+                - System implications
+            - title: Risk Rating
+              options:
+                - Critical
+                - High
+                - Medium
+                - Low
+              criteria:
+                - Impact severity
+                - Likelihood
+                - Control effectiveness
+            - title: Management Action
+              format: bullet_points
+              components:
+                - Required actions
+                - Responsibilities
+                - Success criteria
+    writing_guidelines:
+        style:
+            - Use passive voice
+            - Avoid personal pronouns
+            - No subjective language
+            - Plain English
+            - Define abbreviations first
+        formatting:
+            - Consistent bullet point structure
+            - Proper comma usage
+            - Single transition words
+            - Parallel structure in lists
+        content:
+            - Focus on risk-based observations
+            - Clear root cause identification
+            - Impact assessment
+            - Compensating controls
+            - Time frame specification
 
-reporting_task:
-  description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
-  expected_output: >
-    A fully fledged report with the main topics, each with a full section of information.
-    Formatted as markdown without '```'
-  agent: reporting_analyst
+review_transaction_limits:
+    description: Analyze transaction approvals against authorized limits
+    agent: limit_reviewer
+    priority: 1
+    expected_output: A markdown file containing limit-related findings
+    output_structure:
+        sections:
+            - title: Observation Title
+              requirements:
+                - Subject-focused and concise
+                - Non-negative phrasing
+                - Clear without technical jargon
+            - title: Observation Details
+              format: bullet_points
+              requirements:
+                - Direct and concise points that explains the noted discrepancies.
+                - Logical flow in main and sub-bullets
+                - No background information
+                - Clear timeline and scope
+                - Evidence-based findings
+            - title: Risks
+              components:
+                - Identified risks
+                - Impact analysis
+                - Control gaps
+                - System implications
+            - title: Risk Rating
+              options:
+                - Critical
+                - High
+                - Medium
+                - Low
+              criteria:
+                - Impact severity
+                - Likelihood
+                - Control effectiveness
+            - title: Management Action
+              format: bullet_points
+              components:
+                - Required actions
+                - Timeline
+                - Responsibilities
+                - Success criteria
+    writing_guidelines:
+        style:
+            - Use passive voice
+            - Avoid personal pronouns
+            - No subjective language
+            - Plain English
+            - Define abbreviations first
+        formatting:
+            - Consistent bullet point structure
+            - Proper comma usage
+            - Single transition words
+            - Parallel structure in lists
+        content:
+            - Focus on risk-based observations
+            - Clear root cause identification
+            - Impact assessment
+            - Compensating controls
+            - Time frame specification
+
+review_audit_trail:
+  description: Verify change management compliance and identify potential process violations
+  agent: audit_trail_reviewer
+  priority: 1
+  expected_output: A markdown file containing change management audit findings
+  output_structure:
+    sections:
+      - title: Observation
+        requirements:
+          - Subject-focused and concise
+          - Non-negative phrasing
+          - Clear without technical jargon
+
+      - title: Observation Details
+        format: bullet_points
+        requirements:
+          - Direct and concise points explaining change management discrepancies
+          - Logical flow in main and sub-bullets
+          - No background information
+          - Clear timeline and scope
+          - Evidence-based findings
+
+      - title: Risks
+        components:
+          - Identified risks in change management process
+          - Impact analysis of non-compliant changes
+          - Control gaps in change execution
+          - System and operational implications
+
+      - title: Risk Rating
+        options:
+          - Critical
+          - High
+          - Medium
+          - Low
+        criteria:
+          - Change management SLA violation severity
+          - Unauthorized user access likelihood
+          - Control effectiveness
+          - Potential system impact
+
+      - title: Management Action
+        format: bullet_points
+        components:
+          - Required corrective actions
+          - User responsibility assignments
+          - Success criteria for process improvement
+
+  writing_guidelines:
+    style:
+      - Use passive voice
+      - Avoid personal pronouns
+      - No subjective language
+      - Plain English
+      - Define abbreviations first
+
+    formatting:
+      - Consistent bullet point structure
+      - Proper comma usage
+      - Single transition words
+      - Parallel structure in lists
+
+    content:
+      - Focus on change management process risks
+      - Clear root cause identification
+      - Impact assessment of non-compliant changes
+      - Recommended compensating controls
+      - Specific time frame specification
+
+
+
+review_transaction_policy:
+  description: Verify transaction-level compliance with organizational policies
+  agent: transaction_reviewer
+  priority: 1
+  expected_output: A markdown file containing policy compliance findings
+  output_structure:
+    sections:
+      - title: Policy Observation
+        requirements:
+          - Focus on specific policy clauses
+          - Reference policy document versions
+      - title: Policy Violation Details
+        format: bullet_points
+        components:
+          - Violated policy section
+          - Transaction IDs involved
+          - Nature of non-compliance
+      - title: Compliance Risk Assessment
+        components:
+          - Regulatory implications
+          - Reputational risks
+          - Financial exposure
+      - title: Risk Rating
+        options: [Critical, High, Medium, Low]
+        criteria:
+          - Severity of policy breach
+          - Regulatory penalty likelihood
+      - title: Remediation Actions
+        components:
+          - Policy updates required
+          - Staff retraining needs
+          - Monitoring improvements
+
+
+compile_audit_report:
+    description: Compile all findings from findings folder into comprehensive audit report
+    agent: audit_report_writer
+    priority: 2
+    input_path: findings/*.md
+    output_file: DraftAuditReport.md
+    expected_output: A comprehensive audit report with structured sections
+    report_structure:
+        sections:
+            - title: Executive Summary
+              required: true
+              components:
+                - title: Audit Background
+                  content: Overview of audit scope and objectives
+                  format: paragraph
+                - title: Key Findings Summary
+                  content: Aggregated statistics of findings across all audit areas
+                  format: table
+                  columns:
+                    - Audit Area
+                    - Critical
+                    - High
+                    - Medium
+                    - Low
+                - title: Overall Risk Assessment
+                  content: Summary of most critical risks across all audit domains
+                  format: bullet_points
+
+            - title: Detailed Findings
+              required: true
+              structure: per_source_file
+              components:
+                - section: "[Audit Area] - [Finding Title]"
+                  elements:
+                    - Observation:
+                        content: 
+                          - Process background
+                          - Identified issues
+                          - Root cause analysis
+                        format: bullet_points
+                    - Risk Rating:
+                        content: "[Critical/High/Medium/Low]"
+                        format: bold_label
+                    - Risks:
+                        content:
+                          - Potential business impacts
+                          - Control failures
+                          - Compliance implications
+                        format: bullet_points
+                    - Management Actions:
+                        content: Recommended mitigation steps
+                        format: numbered_list
+              formatting:
+                - Each finding as separate H2 section
+                - Consistent subsection ordering (Observation > Risk Rating > Risks > Management Actions)
+                - Clear separation between audit domains
+                - Preserve all original findings verbatim
+                - Maintain source file order within risk categories
+                - Include full transaction IDs/user IDs from sources

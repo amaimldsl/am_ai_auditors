@@ -1,0 +1,1 @@
+The speeding fine is $800.
